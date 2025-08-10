@@ -1,6 +1,7 @@
-import csv_handler.py as csvm
-import downloader.py as dwn
+import csv_handler as csvm
+import downloader as dwn
 import csv
+
 
 print("before starting please ensure your column containing the links has the heading renamed to 'link/links'")
 input()
@@ -25,23 +26,22 @@ try:
     os.mkdir(folder)
 except FileExistsError:
     pass
-    except OSError as error:
+except OSError as error:
     print(f"unable to generate '{folder}': {error}")
     input()
-finally:
-    try:
-        os.chdir("cloudfarmer downloads")
-    except FileNotFoundError:
-        print(f"Fatal: '{folder}' not found.")
-    except OSError as error:
-       print(f"Fatal: Unable to access '{folder}': {e}")
+try:
+    os.chdir("cloudfarmer downloads")
+except FileNotFoundError:
+    print(f"Fatal: '{folder}' not found.")
+except OSError as error:
+    print(f"Fatal: Unable to access '{folder}': {e}")
 
 print("folders to store downloads were successfuly created/accessed")
 
 
 # iterating through all the linkmaps [ui:links] to download files and update linkFile [link:filename]
 for identifiers in linkmaps:
-    link,filename = dwn.download(linkmaps[identifiers], identifier)
+    link,filename = dwn.download(linkmaps[identifiers], identifiers)
     linkFile[link] = filename                                                           
 
 
