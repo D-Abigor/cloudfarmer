@@ -1,5 +1,6 @@
 import os
 import csv
+import sys
 
 def processcsv():
     files = os.listdir()
@@ -17,11 +18,10 @@ def processcsv():
         choice = input("please confirm to proceed(y/Y):")       # getting user confirmation for detected file
         if choice in "yY":
             print("processing...")
-            print("links were extracted")
-            return getlinks(newestFile)                         # processing the csv file to obtain the links that need to be downloaded and returning it to the original function call
+            return getlinks(newestFile),newestFile                         # processing the csv file to obtain the links that need to be downloaded and returning it to the original function call
         else:
             print("u may try opening and closing the file u want to harvest")
-            return
+            sys.exit()
 
 def getlinks(file):
     with open(file, "r") as data:

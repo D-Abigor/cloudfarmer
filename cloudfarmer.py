@@ -1,10 +1,23 @@
 import csv_handler.py as csvm
 import downloader.py as dwn
+import csv
 
 print("before starting please ensure your column containing the links has the heading renamed to 'link/links'")
-wait = input()
+input()
 
-linkmaps = csvm.processcsv()
+linkmaps,inputFileName= csvm.processcsv()               # linkmaps --> 
+
+originalCsv = []
+linkFile = {}                                           # dictionary with key value pair --> links:filename
+
+with open(inputFileName, "r") as original:
+    reader = csv.reader(original)
+    for rows in reader:
+        originalCsv.append(rows)
+
+for columns in range(len(originalCsv[0])):
+    if originalCsv[0][columns] in "links":
+        linkIndex = columns
 
 import os
 folder = "cloudfarmer downloads"
@@ -12,7 +25,7 @@ try:
     os.mkdir(folder)
 except FileExistsError:
     pass
-except OSError as error:
+    except OSError as error:
     print(f"unable to generate '{folder}': {error}")
     input()
 finally:
@@ -21,10 +34,23 @@ finally:
     except FileNotFoundError:
         print(f"Fatal: '{folder}' not found.")
     except OSError as error:
-        print(f"Fatal: Unable to access '{folder}': {e}")
+       print(f"Fatal: Unable to access '{folder}': {e}")
 
 print("folders to store downloads were successfuly created/accessed")
 
+
+# iterating through all the linkmaps [ui:links] to download files and update linkFile [link:filename]
 for identifiers in linkmaps:
-    dwn.download(linkmaps[identifiers], identifier)
+    link,filename = dwn.download(linkmaps[identifiers], identifier)
+    linkFile[link] = filename                                                           
+
+
+
+with open("output.csv", "w") as file:
+    writer = csv.writer(file)                                                                 
+    for rows in originalCsv:
+        rows[linkIndex] = linkFile[rows[linkIndex]]                                         # dic structure --> links from original file : filename assigned
+    for rows in originalCsv:
+        writer.writerow(rows)
+    
     
