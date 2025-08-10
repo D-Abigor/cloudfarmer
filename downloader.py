@@ -50,10 +50,9 @@ def download(link,identifier):
         print("file could not be downloaded")
         print(response)
         print(downloadLink)
-        input()
-        return
+        filename = str(identifier) +'.'+ 'err'
     wait_time = random.uniform(min_delay,max_delay)
     print(f"Waiting {wait_time:.2f} seconds before next download...")
     time.sleep(wait_time)
     filename = os.path.abspath(str(identifier) + '.' + extension)
-    return link,filename                                                                            # need to change filename to get full file path
+    return link,filename                                                                           

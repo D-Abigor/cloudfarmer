@@ -6,7 +6,6 @@ def processcsv():
     files = os.listdir()
     csvs = ()
     for file in files:                              #traversing filenames to add csv files to csvs
-        print(file, file[-3:])
         if file[-3:] == "csv":
             csvs += (file,)
     

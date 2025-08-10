@@ -47,9 +47,13 @@ for identifiers in linkmaps:
 
 
 with open("output.csv", "w") as file:
-    writer = csv.writer(file)                                                                 
+    writer = csv.writer(file)      
+    flag = 0                                                           
     for rows in originalCsv:
-        rows[linkIndex] = linkFile[rows[linkIndex]]                                         # dic structure --> links from original file : filename assigned
+        if flag:
+            rows[linkIndex] = linkFile[rows[linkIndex]]                                         # dic structure --> links from original file : filename assigned
+        else:
+            flag+=1
     for rows in originalCsv:
         writer.writerow(rows)
     

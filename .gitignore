@@ -1,1 +1,4 @@
 *.csv
+cloudfarmer downloads/
+__pycache__/
+*pdf
