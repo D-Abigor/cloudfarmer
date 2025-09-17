@@ -22,7 +22,7 @@ def processcsv():
             print("u may try opening and closing the file u want to harvest")
             sys.exit()
 
-def getlinks(file):
+def getlinks(file): 
     with open(file, "r") as data:
         reader = csv.reader(data)
         linkMaps = {}                                          # dictionary that is being used to store [unique identifier -> link] pairs

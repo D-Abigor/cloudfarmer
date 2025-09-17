@@ -10,6 +10,12 @@ linkmaps,inputFileName= csvm.processcsv()               # linkmaps -->
 
 originalCsv = []
 linkFile = {}                                           # dictionary with key value pair --> links:filename
+min = input("minimum wait time between downloads[2]:")
+max = input("maxmimum wait time between downloads[5]:")
+if min == '':
+    min = 2
+if max == '':
+    max = 5
 
 with open(inputFileName, "r") as original:
     reader = csv.reader(original)
@@ -41,7 +47,7 @@ print("folders to store downloads were successfuly created/accessed")
 
 # iterating through all the linkmaps [ui:links] to download files and update linkFile [link:filename]
 for identifiers in linkmaps:
-    link,filename = dwn.download(linkmaps[identifiers], identifiers)
+    link,filename = dwn.download(linkmaps[identifiers], identifiers, min, max)
     #linkFile[link] = filename
     linkFile[link] = "=HYPERLINK(" +'"' + filename + '"' +","+'"' + "File" + '"' +")"                                              
 

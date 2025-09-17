@@ -24,7 +24,7 @@ def obtainDDL(link):
         print('unsupported host')
     return downloadLink
     
-def download(link,identifier):
+def download(link,identifier,min,max):
     downloadLink = obtainDDL(link)
     response = req.get(downloadLink, stream=True)
     try:
@@ -51,7 +51,7 @@ def download(link,identifier):
         print(response)
         print(downloadLink)
         filename = str(identifier) +'.'+ 'err'
-    wait_time = random.uniform(min_delay,max_delay)
+    wait_time = random.uniform(miny,max)
     print(f"Waiting {wait_time:.2f} seconds before next download...")
     time.sleep(wait_time)
     filename = os.path.abspath(str(identifier) + '.' + extension)
