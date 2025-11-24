@@ -25,6 +25,12 @@ def obtainDDL(link):
     return downloadLink
     
 def download(link,identifier,min,max):
+    #checking if the file has already been downloaded
+    file = [file for file in os.listdir() if file.startswith(str(identifier)+".")]
+    if file:
+        print(file[0], "already downloaded")
+        return link,file[0]
+
     downloadLink = obtainDDL(link)
     response = req.get(downloadLink, stream=True)
     try:
@@ -32,13 +38,9 @@ def download(link,identifier,min,max):
     except KeyError:
         extension = "unknown"
 
+
     if response.status_code == 200:
         filename = str(identifier) +'.'+ extension
-        dirs = os.listdir()
-        if filename in dirs:
-            print(filename, 'already exists')
-            filename = os.path.abspath(str(identifier) + '.' + extension)
-            return link,filename
         with open(filename, "wb") as file:
             for chunks in response.iter_content(8192):
                 if chunks:
@@ -51,7 +53,7 @@ def download(link,identifier,min,max):
         print(response)
         print(downloadLink)
         filename = str(identifier) +'.'+ 'err'
-    wait_time = random.uniform(miny,max)
+    wait_time = random.uniform(min,max)
     print(f"Waiting {wait_time:.2f} seconds before next download...")
     time.sleep(wait_time)
     filename = os.path.abspath(str(identifier) + '.' + extension)

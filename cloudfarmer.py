@@ -47,6 +47,7 @@ print("folders to store downloads were successfuly created/accessed")
 
 # iterating through all the linkmaps [ui:links] to download files and update linkFile [link:filename]
 for identifiers in linkmaps:
+    # check if file already exists
     link,filename = dwn.download(linkmaps[identifiers], identifiers, min, max)
     #linkFile[link] = filename
     linkFile[link] = "=HYPERLINK(" +'"' + filename + '"' +","+'"' + "File" + '"' +")"                                              
